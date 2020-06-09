@@ -1,0 +1,53 @@
+
+<!--base.html을 상속받음-->
+{% extends 'base.html' %}
+
+<!--static 폴더에 있는 리소스 로드-->
+{%load static%}
+
+<!--타이틀-->
+{% block title %}Kimsouce universe{% endblock %}
+
+<!--바디의 헤더 영역: 네비 바 포함-->
+{% block header %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{% static 'img/post-bg.jpg'%}'">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Archive</h1>
+            <span class="subheading">This is my journal</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+<!--바디의 콘텐트 영역: 본문-->
+{% block content %}
+
+<div>
+    <ul>
+        {% for post in object_list %}
+        <li>{{post.modify_dt|date:"Y-m-d" }}&nbsp;&nbsp;&nbsp;
+        <a href=" {{post.get_absolute_url }}"><strong>{{ post.title }}</strong></a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
+
+<!--바디의 풋터 영역-->
+{%block footer%}
+
+{% endblock %}
+
+<!--추가 스크립트 지정 영역-->
+{%block extra-script%} {% endblock %}
+
+
+
+

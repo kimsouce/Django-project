@@ -1,0 +1,60 @@
+<!--base.html을 상속받음-->
+{% extends 'base.html' %}
+
+<!--static 폴더에 있는 리소스 로드-->
+{%load static%}
+
+<!--타이틀-->
+{% block title %}Kimsouce universe{% endblock %}
+
+<!--바디의 헤더 영역: 네비 바 포함-->
+{% block header %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{% static 'img/about-bg.jpg'%}'">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Searching...</h1>
+            <span class="subheading">please wait!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+
+<!--바디의 콘텐트 영역: 본문-->
+{% block content %}
+<h1>Blog Search</h1>
+<br>
+
+<form action="." method="post"> {% csrf_token %}
+    {{ form.as_table}}
+    <input type="submit" value="Submit" class="btn btn-warning btn-sm">
+</form>
+
+<br/><br/>
+
+{% if object_list %}
+{% for post in object_list %}
+    <h2><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></h2>
+    {{ post.modify_date|date:"N d, Y"}}
+    <p>{{ post.description }}</p>
+{% endfor %}
+
+{% elif search_term %}
+    <b><i>Search Word({{ search_term }}) Not Found ! </i></b>
+{% endif %}
+{% endblock %}
+
+
+<!--바디의 풋터 영역-->
+{%block footer%}
+
+{% endblock %}
+
+<!--추가 스크립트 지정 영역-->
+{%block extra-script%} {% endblock %}

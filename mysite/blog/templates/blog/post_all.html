@@ -1,0 +1,83 @@
+<!--base.html을 상속받음-->
+{% extends 'base.html' %}
+
+<!--static 폴더에 있는 리소스 로드-->
+{%load static%}
+
+<!--타이틀-->
+{% block title %}Kimsouce universe{% endblock %}
+
+<!--바디의 헤더 영역: 네비 바 포함-->
+{% block header %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{% static 'img/post-bg.jpg'%}'">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Post</h1>
+            <span class="subheading">This is my story. I want to share with you guys!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+<!--바디의 콘텐트 영역: 본문-->
+{% block content %}
+<h1>Blog List</h1>
+<br>
+<div class="container">
+    <a href="{% url 'blog:add'%}" class="btn btn-warning btn-sm float-right" role="button" aria-pressed="true">Add new post!</a>
+    <center>
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-preview">
+          <a href="post.html">
+          {% for post in posts %}
+            <h2 class="post-title"><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
+            </h2>
+              <h3 class="post-subtitle"> <small>{{ post.description }}</small>
+            </h3>
+          </a>
+            <i><font color=gray>{{ post.modify_dt|date:"N d, Y" }}</font></i>
+          <hr>
+        </div>
+          {% endfor %}
+
+        <hr>
+      </div>
+    </div>
+    </center>
+  </div>
+
+<br>
+
+<div>
+    <span>
+        {% if page_obj.has_previous %}
+         <a href="?page={{ page_obj.previous_page_number }}">GoPreviousPage</a>
+        {% endif %}
+
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">GoNextPage</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
+
+<!--바디의 풋터 영역-->
+{%block footer%}
+
+{% endblock %}
+
+<!--추가 스크립트 지정 영역-->
+{%block extra-script%} {% endblock %}
+
+
+
+

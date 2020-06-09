@@ -1,0 +1,56 @@
+<!--base.html을 상속받음-->
+{% extends 'base.html' %}
+
+<!--static 폴더에 있는 리소스 로드-->
+{%load static%}
+
+<!--타이틀-->
+{% block title %} Kimsouce universe {% endblock %}
+
+<!--바디의 헤더 영역: 네비 바 포함-->
+{% block header %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{% static 'img/home-bg.jpg'%}'">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Bookmark List</h1>
+            <span class="subheading">List</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+<!--바디의 콘텐트 영역: 본문-->
+{% block content %}
+
+<!--    ul: 순서가 없는 리스트, ol: 순서가 지정된 리스트-->
+    <ul>
+        <!--        object_list안에 잇는 데이터를 bookmark라는 변수에 담는 것을 순차적으로 반복-->
+        {% for bookmark in object_list %}
+            <!-- 담은 내용을 하이퍼링크(a href)와 함께 출력-->
+            <li><a href="{% url 'bookmark:detail' bookmark.id %}">{{ bookmark }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<center>
+<a href="{% url 'bookmark:add'%}" class="btn btn-warning btn-sm float-center" role="button" aria-pressed="true">Add new!</a>
+</center>
+
+{% endblock %}
+
+
+
+<!--바디의 풋터 영역-->
+{%block footer%}
+
+{% endblock %}
+
+<!--추가 스크립트 지정 영역-->
+{%block extra-script%} {% endblock %}
+

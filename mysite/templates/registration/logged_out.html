@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+<!--타이틀-->
+{% block title %}Kimsouce universe{% endblock %}
+
+<!--바디의 헤더 영역: 네비 바 포함-->
+{% block header %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{% static 'img/flower.jpg'%}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Hi, I'm NEAL!</h1>
+            <span class="subheading">welcome to so yeon's universe</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+<!--바디의 콘텐트 영역: 본문-->
+{% block content %}
+    <h1>Logged out</h1>
+    <br>
+    <div>
+        <i class="fas fa-quote-left"></i>
+        <span class="h6">&ensp;Thanks for spending your quality time with this web site today!&ensp;</span>
+        <i class="fas fa-quote-right"></i>
+    </div>
+
+    <p class="font-italic"><a href="{% url 'login' %}">Log in again</a></p>
+
+{% endblock %}
+
+<!--바디의 풋터 영역-->
+{%block footer%}
+
+{% endblock %}
+
+<!--추가 스크립트 지정 영역-->
+{%block extra-script%} {% endblock %}

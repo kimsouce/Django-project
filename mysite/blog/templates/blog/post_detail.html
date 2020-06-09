@@ -1,0 +1,96 @@
+
+<!--base.html을 상속받음-->
+{% extends 'base.html' %}
+
+<!--static 폴더에 있는 리소스 로드-->
+{%load static%}
+
+<!--타이틀-->
+{% block title %}Kimsouce universe{% endblock %}
+
+<!--바디의 헤더 영역: 네비 바 포함-->
+{% block header %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{% static 'img/about-bg.jpg'%}'">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Archive</h1>
+            <span class="subheading">This is my journal</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+{% endblock %}
+
+<!--바디의 콘텐트 영역: 본문-->
+{% block content %}
+
+<div>
+    {{ object.content|linebreaks }}
+</div>
+
+<!--Tag 관련 추가-->
+   <br>
+   <div>
+       <b>TAGS</b> <i class="fas fa-tag"></i>
+       {% load taggit_templatetags2_tags %}
+       {% get_tags_for_object object as "tags" %}
+       {% for tag in tags %}
+           <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
+       {% endfor %}
+&emsp;
+       <a href="{% url 'blog:tag_cloud' %}"><span class="btn btn-warning btn-sm">TagCloud</span></a>
+   </div>
+
+
+    <br>
+    <div id="disqus_thread"></div>
+
+    {% block extra-style %}
+    <style>
+    .post-body {
+    width: 80%;
+    margin: auto;
+    font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+    font-size: 16px;
+    }
+    </style>
+    {% endblock extra-style %}
+
+<center>
+<a href="{% url 'blog:update' object.id %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true">Update</a>
+<a href="{% url 'blog:delete' object.id %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true">Delete</a>
+</center>
+{% endblock %}
+
+<!--바디의 풋터 영역-->
+{%block footer%}
+
+{% endblock %}
+
+<!--추가 스크립트 지정 영역-->
+{%block extra-script%}
+<script>
+
+    var disqus_config = function () {
+        this.page.url = '{{disqus_url}}';
+        this.page.identifier = '{{disqus_id}}';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://kimsouce-universe-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+{% endblock %}
+
+
+
